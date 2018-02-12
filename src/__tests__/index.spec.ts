@@ -1271,6 +1271,32 @@ describe("flatpickr", () => {
       expect(isArrowVisible("prevMonthNav")).toBe(true);
       expect(isArrowVisible("nextMonthNav")).toBe(false);
     });
+
+    it("disables/enables prev/next month arrows via config", () => {
+      const isArrowEnabled = (which: "prevMonthNav" | "nextMonthNav") =>
+        fp[which].classList.contains("disabled") === false;
+      createInstance({
+        minDate: "2099-1-1",
+        maxDate: "2099-3-4",
+        mode: "range",
+        showDisabledArrows: true,
+      });
+
+      expect(fp.currentMonth).toBe(0);
+      expect(isArrowEnabled("prevMonthNav")).toBe(false);
+      expect(isArrowEnabled("nextMonthNav")).toBe(true);
+
+      simulate("mousedown", fp.days.childNodes[10], { which: 1 }, MouseEvent); // select some date
+      jest.runOnlyPendingTimers();
+      simulate("mousedown", fp.nextMonthNav, { which: 1 }, MouseEvent);
+
+      expect(isArrowEnabled("prevMonthNav")).toBe(true);
+      expect(isArrowEnabled("nextMonthNav")).toBe(true);
+
+      simulate("mousedown", fp.nextMonthNav, { which: 1 }, MouseEvent);
+      expect(isArrowEnabled("prevMonthNav")).toBe(true);
+      expect(isArrowEnabled("nextMonthNav")).toBe(false);
+    });
   });
 
   describe("Localization", () => {

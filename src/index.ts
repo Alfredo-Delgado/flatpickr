@@ -871,7 +871,9 @@ function FlatpickrInstance(
       get: () => self.__hidePrevMonthArrow,
       set(bool: boolean) {
         if (self.__hidePrevMonthArrow !== bool)
-          self.prevMonthNav.style.display = bool ? "none" : "block";
+          if (self.config.showDisabledArrows)
+            toggleClass(self.prevMonthNav, "disabled", bool);
+          else self.prevMonthNav.style.display = bool ? "none" : "block";
         self.__hidePrevMonthArrow = bool;
       },
     });
@@ -880,7 +882,9 @@ function FlatpickrInstance(
       get: () => self.__hideNextMonthArrow,
       set(bool: boolean) {
         if (self.__hideNextMonthArrow !== bool)
-          self.nextMonthNav.style.display = bool ? "none" : "block";
+          if (self.config.showDisabledArrows) {
+            toggleClass(self.nextMonthNav, "disabled", bool);
+          } else self.nextMonthNav.style.display = bool ? "none" : "block";
         self.__hideNextMonthArrow = bool;
       },
     });
