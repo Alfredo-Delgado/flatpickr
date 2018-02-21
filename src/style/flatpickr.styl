@@ -210,6 +210,13 @@
       transition fill 0.1s
       fill inherit
 
+  &.disabled
+    &, &:hover
+      cursor not-allowed
+      color alpha($dayForeground, 0.1)
+      svg
+        fill alpha($dayForeground, 0.1)
+
 
 .numInputWrapper
   position relative
@@ -485,8 +492,7 @@ span.flatpickr-weekday
     cursor default
 
   &.disabled, &.disabled:hover
-    cursor not-allowed
-    color alpha($dayForeground, 0.1)
+    @extend .flatpickr-prev-month.disabled
 
   &.week.selected
     border-radius 0
