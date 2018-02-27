@@ -142,12 +142,6 @@ export function compareTimes(date1: Date, date2: Date) {
   );
 }
 
-export const monthToStr = (
-  monthNumber: number,
-  shorthand: boolean,
-  locale: Locale
-) => locale.months[shorthand ? "shorthand" : "longhand"][monthNumber];
-
 export const getWeek = (givenDate: Date) => {
   const date = new Date(givenDate.getTime());
   date.setHours(0, 0, 0, 0);
@@ -168,6 +162,10 @@ export const getWeek = (givenDate: Date) => {
         7
     )
   );
+};
+
+export const isBetween = (ts: number, ts1: number, ts2: number) => {
+  return ts > Math.min(ts1, ts2) && ts < Math.max(ts1, ts2);
 };
 
 export const duration = {
